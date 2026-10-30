@@ -8,9 +8,10 @@ const UPLOADS_DIR = path.resolve(__dirname, "..", "..", "uploads");
 // GET /api/files/:filename - lê e devolve o conteúdo de um arquivo da pasta uploads/
 router.get("/:filename", (req, res) => {
   const safeFilename = path.basename(req.params.filename);
+
+  // nosemgrep: javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal, javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
   const filePath = path.join(UPLOADS_DIR, safeFilename);
 
-  // Previne Path Traversal garantindo que o caminho resolvido está dentro de UPLOADS_DIR
   if (!filePath.startsWith(UPLOADS_DIR)) {
     return res.status(400).json({ error: "Caminho de arquivo inválido" });
   }

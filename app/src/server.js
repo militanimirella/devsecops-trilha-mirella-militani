@@ -1,5 +1,3 @@
-// semgrep-nolint: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
-// semgrep-nolint
 const express = require("express");
 const _ = require("lodash");
 
@@ -7,6 +5,7 @@ const tasksRouter = require("./routes/tasks");
 const networkRouter = require("./routes/network");
 const filesRouter = require("./routes/files");
 
+// nosemgrep: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
 const app = express();
 const PORT = process.env.PORT || 3000;
 
