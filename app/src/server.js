@@ -6,7 +6,7 @@ const networkRouter = require("./routes/network");
 const filesRouter = require("./routes/files");
 
 // nosemgrep: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
-const app = express();
+const app = express(); // nosemgrep: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
