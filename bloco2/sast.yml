@@ -1,0 +1,25 @@
+name: Pipeline SAST
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  semgrep:
+    name: Analise de Seguranca
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Build da aplicacao
+        run: |
+          cd app
+          docker build -t app-teste .
+
+      - name: Instalar e Executar Semgrep
+        run: |
+          pip install semgrep
+          semgrep scan --config="p/default" --error
