@@ -6,20 +6,19 @@ const db = require("../db");
 router.get("/", (req, res) => {
   res.json(db.listTasks());
 });
-
-// GET /api/tasks/filter?expr=<expressão> - filtro avançado de tarefas
+// GET /api/tasks/filter?expr=<expressão> - filtro seguro de tarefas
 router.get("/filter", (req, res) => {
   const { expr } = req.query;
   if (!expr) return res.status(400).json({ error: "Parâmetro 'expr' é obrigatório" });
   try {
     const tasks = db.listTasks();
-    const result = tasks.filter((t) => eval(expr));
+    // Substituímos o eval() perigoso por uma busca segura de texto no título
+    const result = tasks.filter((t) => t.title && t.title.includes(expr));
     res.json(result);
   } catch (err) {
-    res.status(400).json({ error: "Expressão inválida", details: err.message });
+    res.status(400).json({ error: "Erro ao filtrar", details: err.message });
   }
 });
-
 // GET /api/tasks/:id - busca uma tarefa pelo id
 router.get("/:id", (req, res) => {
   const task = db.getTask(req.params.id);
