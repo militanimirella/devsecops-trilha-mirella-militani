@@ -14,12 +14,12 @@ jobs:
       - name: Checkout do codigo
         uses: actions/checkout@v4
 
-      - name: Build da aplicacao (Validacao)
+      - name: Build da aplicacao
         run: |
           cd app
           docker build -t app-teste .
 
-      - name: Executar Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: "p/default"
+      - name: Instalar e Executar Semgrep
+        run: |
+          pip install semgrep
+          semgrep scan --config="p/default" --error
