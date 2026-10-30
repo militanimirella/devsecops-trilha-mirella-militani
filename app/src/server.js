@@ -5,8 +5,8 @@ const tasksRouter = require("./routes/tasks");
 const networkRouter = require("./routes/network");
 const filesRouter = require("./routes/files");
 
-// nosemgrep: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
-const app = express(); // nosemgrep: javascript.express.security.audit.express-check-csrf-middleware-usage.express-check-csrf-middleware-usage
+// API sem sessões por cookie (sem autenticação baseada em cookie), então CSRF não se aplica.
+const app = express(); // nosemgrep: javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
